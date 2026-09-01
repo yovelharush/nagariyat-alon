@@ -1,8 +1,11 @@
 /*
   נגריית אלון — script.js
   שלב 4: חיבור טופס יצירת הקשר ל-webhook של n8n.
+  שלב 5: מערכת reveal בגלילה + כניסת Hero (IntersectionObserver אחד, ללא scroll listener).
   קוד מינימלי, ללא dependencies וללא ספריות חיצוניות.
 */
+
+/* --- טופס יצירת קשר (לוגיקת השליחה — ללא שינוי) --- */
 (function () {
   "use strict";
 
@@ -84,4 +87,51 @@
         setSending(false);
       });
   });
+})();
+
+/* --- אנימציות: כניסת Hero + reveal בגלילה --- */
+(function () {
+  "use strict";
+
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function markLoaded() {
+    document.body.classList.add("is-loaded");
+  }
+  if (document.readyState === "complete") {
+    markLoaded();
+  } else {
+    window.addEventListener("load", markLoaded, { once: true });
+  }
+
+  var revealEls = document.querySelectorAll(".reveal, .media-reveal");
+  if (!revealEls.length) {
+    return;
+  }
+
+  if (prefersReduced || !("IntersectionObserver" in window)) {
+    revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: "0px 0px -5% 0px", threshold: 0 });
+
+  revealEls.forEach(function (el) { observer.observe(el); });
+
+  // רשת ביטחון: אם משום מה אלמנט לא נחשף, ודא שהוא מוצג לאחר זמן קצר
+  window.setTimeout(function () {
+    revealEls.forEach(function (el) {
+      if (!el.classList.contains("is-visible")) {
+        el.classList.add("is-visible");
+        observer.unobserve(el);
+      }
+    });
+  }, 3000);
 })();

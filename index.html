@@ -5,28 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>נגריית אלון — רהיטים בהזמנה אישית</title>
   <meta name="description" content="נגריית אלון — רהיטים בהזמנה אישית מפרדס חנה. שולחנות, ארונות, ספריות ומזנונים בעבודת נגרות אישית לפי המידות והצרכים שלכם.">
-  <meta name="theme-color" content="#F4EFE7">
+  <meta name="theme-color" content="#17130F">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Rubik:wght@500;600&display=swap">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Progressive enhancement: ללא JavaScript, בטל את מצבי הכניסה כדי שכל התוכן והטופס יישארו גלויים ותקינים -->
+  <noscript>
+    <style>
+      .reveal, .media-reveal img,
+      .hero__media img, .hero__eyebrow, .hero__title, .hero__lead, .hero__cta {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
 </head>
 <body>
 
   <!-- ===================== Header ===================== -->
   <header class="site-header">
-    <div class="container site-header__inner">
-      <a class="brand" href="#hero">
-        <span class="brand__name">נגריית אלון</span>
-        <span class="brand__tagline">רהיטים בהזמנה אישית</span>
+    <div class="container container--wide site-header__inner">
+      <a class="brand" href="#hero" aria-label="נגריית אלון — לראש העמוד">
+        <img class="brand__logo" src="images/logo.png" width="900" height="385" alt="נגריית אלון">
       </a>
       <nav class="site-nav" aria-label="ניווט ראשי">
         <ul>
           <li><a href="#work">מה אני בונה</a></li>
           <li><a href="#process">איך זה עובד</a></li>
           <li><a href="#materials">חומרים ואיכות</a></li>
-          <li><a href="#contact">יצירת קשר</a></li>
+          <li class="site-nav__cta"><a href="#contact">יצירת קשר</a></li>
         </ul>
       </nav>
     </div>
@@ -36,115 +46,162 @@
 
     <!-- ===================== Hero ===================== -->
     <section class="hero" id="hero" aria-labelledby="hero-title">
-      <div class="container hero__inner">
-        <div class="hero__text">
+      <div class="hero__media">
+        <img src="images/hero-wardrobe.jpg" width="2200" height="1466"
+             alt="חדר ארונות בהתאמה אישית מעץ אגוז כהה עם תאורה חמה שקועה"
+             fetchpriority="high" decoding="async">
+      </div>
+      <div class="hero__scrim" aria-hidden="true"></div>
+      <div class="container container--wide hero__inner">
+        <div class="hero__content">
+          <p class="hero__eyebrow eyebrow">נגרות בהתאמה אישית</p>
           <h1 id="hero-title" class="hero__title">רהיטים שנבנים בשביל הבית שלכם.</h1>
           <p class="hero__lead">שולחנות, ארונות, ספריות ומזנונים בעבודת נגרות אישית — לפי המידות, הצרכים והחלל שלכם.</p>
-          <a class="btn btn--primary" href="#contact">בואו נדבר על הרהיט שלכם</a>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#contact">בואו נדבר על הרהיט שלכם</a>
+          </div>
         </div>
-        <!-- אזור תמונת הרהיט. בשלב הבא נחליף את ה-figure ב-<img> (התמונה תיווצר ותועלה ל-Cloudinary). -->
-        <figure class="hero__media" aria-hidden="true"></figure>
       </div>
     </section>
 
     <!-- ===================== מה אני בונה ===================== -->
-    <section class="section" id="work" aria-labelledby="work-title">
-      <div class="container">
-        <h2 id="work-title" class="section__title">מה אני בונה</h2>
-        <ul class="work-list">
-          <li class="work-list__item">
-            <span class="work-list__index" aria-hidden="true">01</span>
-            <h3 class="work-list__name">שולחנות אוכל וסלון</h3>
-            <!-- מקום שמור לתמונת קטגוריה בעתיד -->
-            <span class="work-list__media" aria-hidden="true"></span>
+    <section class="section work" id="work" aria-labelledby="work-title">
+      <div class="container container--wide">
+        <div class="work__head reveal">
+          <h2 id="work-title" class="section__title">מה אני בונה</h2>
+        </div>
+        <ol class="work-list">
+          <li class="work-item reveal" style="--i:0">
+            <div class="work-item__text">
+              <span class="work-item__num" aria-hidden="true">01</span>
+              <h3 class="work-item__name">שולחנות אוכל וסלון</h3>
+              <span class="work-item__line" aria-hidden="true"></span>
+            </div>
+            <figure class="work-item__media media-reveal">
+              <img src="images/dining-table.jpg" width="1800" height="1200" loading="lazy" decoding="async"
+                   alt="שולחן אוכל מעץ בעבודת נגרות אישית, מונח בחלל עם תאורה חמה">
+            </figure>
           </li>
-          <li class="work-list__item">
-            <span class="work-list__index" aria-hidden="true">02</span>
-            <h3 class="work-list__name">ארונות ומזנונים</h3>
-            <span class="work-list__media" aria-hidden="true"></span>
+          <li class="work-item reveal" style="--i:0">
+            <div class="work-item__text">
+              <span class="work-item__num" aria-hidden="true">02</span>
+              <h3 class="work-item__name">ארונות ומזנונים</h3>
+              <span class="work-item__line" aria-hidden="true"></span>
+            </div>
+            <figure class="work-item__media media-reveal">
+              <img src="images/console.jpg" width="1800" height="1200" loading="lazy" decoding="async"
+                   alt="מזנון נמוך מעץ אגוז בעבודת נגרות אישית עם גימור עדין">
+            </figure>
           </li>
-          <li class="work-list__item">
-            <span class="work-list__index" aria-hidden="true">03</span>
-            <h3 class="work-list__name">ספריות וקירות אחסון</h3>
-            <span class="work-list__media" aria-hidden="true"></span>
+          <li class="work-item reveal" style="--i:0">
+            <div class="work-item__text">
+              <span class="work-item__num" aria-hidden="true">03</span>
+              <h3 class="work-item__name">ספריות וקירות אחסון</h3>
+              <span class="work-item__line" aria-hidden="true"></span>
+            </div>
+            <figure class="work-item__media media-reveal">
+              <img src="images/storage-wall.jpg" width="1162" height="1400" loading="lazy" decoding="async"
+                   alt="קיר אחסון מעץ עם נישה מוארת בתאורה חמה שקועה">
+            </figure>
           </li>
-        </ul>
+        </ol>
       </div>
     </section>
 
     <!-- ===================== אודות ===================== -->
-    <section class="section about" id="about" aria-labelledby="about-title">
-      <div class="container about__inner">
-        <div class="about__content">
+    <section class="section section--soft about" id="about" aria-labelledby="about-title">
+      <div class="container container--wide about__inner">
+        <span class="about__year" aria-hidden="true">2017</span>
+        <div class="about__text reveal">
           <h2 id="about-title" class="section__title about__title">נגרות אישית מתחילה בהיכרות עם הבית.</h2>
           <p>אלון עובד בפרדס חנה מאז 2017, מתוך בית מלאכה ברחוב הבנים שאליו אפשר להגיע בתיאום מראש.</p>
           <p>כל שולחן, ארון או ספרייה נבנים מההתחלה לפי המידות של החלל, אופן השימוש והצרכים של מי שישתמש בהם. הפגישה הראשונה נועדה בעיקר להכיר — את הבית, את החדר ואת מה שאתם צריכים שהרהיט יעשה.</p>
         </div>
-        <p class="about__year" aria-hidden="true">2017</p>
+      </div>
+    </section>
+
+    <!-- ===================== רצועה קולנועית ===================== -->
+    <section class="cinematic" aria-label="עבודת נגרות אישית בפרדס חנה">
+      <div class="cinematic__media">
+        <img src="images/bedroom.jpg" width="1800" height="1200" loading="lazy" decoding="async"
+             alt="חדר שינה עם מיטת עץ מלא בעבודת נגרות אישית ותאורה חמה">
+      </div>
+      <div class="cinematic__scrim" aria-hidden="true"></div>
+      <div class="container container--wide cinematic__caption">
+        <p class="eyebrow reveal">פרדס חנה</p>
       </div>
     </section>
 
     <!-- ===================== איך זה עובד ===================== -->
     <section class="section process" id="process" aria-labelledby="process-title">
-      <div class="container">
-        <h2 id="process-title" class="section__title">איך זה עובד</h2>
-        <ol class="process-list">
-          <li class="process-list__item">
-            <span class="process-list__num" aria-hidden="true">01</span>
-            <div class="process-list__body">
-              <h3 class="process-list__name">מדברים</h3>
-              <p>שיחת טלפון ראשונית כדי להבין מה צריך.</p>
-            </div>
+      <div class="container container--wide">
+        <div class="process__head reveal">
+          <h2 id="process-title" class="section__title">איך זה עובד</h2>
+        </div>
+        <ol class="process-line">
+          <li class="process-step reveal" style="--i:0">
+            <span class="process-step__num" aria-hidden="true">01</span>
+            <span class="process-step__tick" aria-hidden="true"></span>
+            <h3 class="process-step__name">מדברים</h3>
+            <p class="process-step__text">שיחת טלפון ראשונית כדי להבין מה צריך.</p>
           </li>
-          <li class="process-list__item">
-            <span class="process-list__num" aria-hidden="true">02</span>
-            <div class="process-list__body">
-              <h3 class="process-list__name">מודדים</h3>
-              <p>אלון מגיע לבית ומבצע מדידות.</p>
-            </div>
+          <li class="process-step reveal" style="--i:1">
+            <span class="process-step__num" aria-hidden="true">02</span>
+            <span class="process-step__tick" aria-hidden="true"></span>
+            <h3 class="process-step__name">מודדים</h3>
+            <p class="process-step__text">אלון מגיע לבית ומבצע מדידות.</p>
           </li>
-          <li class="process-list__item">
-            <span class="process-list__num" aria-hidden="true">03</span>
-            <div class="process-list__body">
-              <h3 class="process-list__name">מתכננים</h3>
-              <p>מקבלים סקיצה והצעת מחיר.</p>
-            </div>
+          <li class="process-step reveal" style="--i:2">
+            <span class="process-step__num" aria-hidden="true">03</span>
+            <span class="process-step__tick" aria-hidden="true"></span>
+            <h3 class="process-step__name">מתכננים</h3>
+            <p class="process-step__text">מקבלים סקיצה והצעת מחיר.</p>
           </li>
-          <li class="process-list__item">
-            <span class="process-list__num" aria-hidden="true">04</span>
-            <div class="process-list__body">
-              <h3 class="process-list__name">בונים</h3>
-              <p>לאחר האישור מתחיל הייצור. זמן הייצור הוא שלושה עד שישה שבועות.</p>
-            </div>
+          <li class="process-step reveal" style="--i:3">
+            <span class="process-step__num" aria-hidden="true">04</span>
+            <span class="process-step__tick" aria-hidden="true"></span>
+            <h3 class="process-step__name">בונים</h3>
+            <p class="process-step__text">לאחר האישור מתחיל הייצור. זמן הייצור הוא שלושה עד שישה שבועות.</p>
           </li>
-          <li class="process-list__item">
-            <span class="process-list__num" aria-hidden="true">05</span>
-            <div class="process-list__body">
-              <h3 class="process-list__name">מרכיבים</h3>
-              <p>אלון מרכיב את הרהיט במקום, וההרכבה כלולה במחיר.</p>
-            </div>
+          <li class="process-step reveal" style="--i:4">
+            <span class="process-step__num" aria-hidden="true">05</span>
+            <span class="process-step__tick" aria-hidden="true"></span>
+            <h3 class="process-step__name">מרכיבים</h3>
+            <p class="process-step__text">אלון מרכיב את הרהיט במקום, וההרכבה כלולה במחיר.</p>
           </li>
         </ol>
       </div>
     </section>
 
     <!-- ===================== חומרים ואיכות ===================== -->
-    <section class="section section--dark materials" id="materials" aria-labelledby="materials-title">
-      <div class="container">
-        <h2 id="materials-title" class="section__title">עץ אמיתי. עבודה שנועדה להחזיק.</h2>
-        <ul class="materials-list">
-          <li>עבודה עם עץ אלון, אגוז ואורן</li>
-          <li>העץ מיובש בתנור לפני תחילת העבודה</li>
-          <li>כל רהיט מותאם אישית</li>
-          <li>שנתיים אחריות על העבודה</li>
-        </ul>
+    <section class="section materials" id="materials" aria-labelledby="materials-title">
+      <span class="light-strip" aria-hidden="true"></span>
+      <div class="container container--wide materials__inner">
+        <div class="materials__text reveal">
+          <h2 id="materials-title" class="section__title">עץ אמיתי. עבודה שנועדה להחזיק.</h2>
+          <ul class="woods" aria-hidden="true">
+            <li>אלון</li>
+            <li>אגוז</li>
+            <li>אורן</li>
+          </ul>
+          <ul class="materials-facts">
+            <li>עבודה עם עץ אלון, אגוז ואורן</li>
+            <li>העץ מיובש בתנור לפני תחילת העבודה</li>
+            <li>כל רהיט מותאם אישית</li>
+            <li>שנתיים אחריות על העבודה</li>
+          </ul>
+        </div>
+        <figure class="materials__media media-reveal">
+          <img src="images/joinery-detail.jpg" width="1000" height="1500" loading="lazy" decoding="async"
+               alt="פרט נגרות: ארון עם דלתות זכוכית כהה, מסגרת מתכת שחורה ותאורה חמה">
+        </figure>
       </div>
     </section>
 
     <!-- ===================== יצירת קשר ===================== -->
     <section class="section contact" id="contact" aria-labelledby="contact-title">
-      <div class="container contact__inner">
-        <div class="contact__intro">
+      <div class="container container--wide contact__inner">
+        <div class="contact__intro reveal">
           <h2 id="contact-title" class="section__title">יש לכם משהו בראש?</h2>
           <p class="contact__sub">ספרו לי מה אתם רוצים לבנות.</p>
           <p class="contact__note">לא צריך לדעת בדיוק איזה עץ, מידות או פתרון אתם צריכים. השאירו כמה פרטים וכתבו בקצרה מה אתם מחפשים.</p>
@@ -182,8 +239,9 @@
 
   <!-- ===================== Footer ===================== -->
   <footer class="site-footer">
-    <div class="container site-footer__inner">
-      <p class="site-footer__name">נגריית אלון</p>
+    <span class="light-strip" aria-hidden="true"></span>
+    <div class="container container--wide site-footer__inner">
+      <img class="site-footer__logo" src="images/logo.png" width="900" height="385" alt="נגריית אלון" loading="lazy" decoding="async">
       <ul class="site-footer__details">
         <li>פרדס חנה</li>
         <li><a href="tel:+972540000000">054-000-0000</a></li>
