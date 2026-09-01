@@ -44,7 +44,7 @@
 
   function setSending(isSending) {
     submitButton.disabled = isSending;
-    submitButton.textContent = isSending ? "שולח..." : defaultButtonText;
+    submitButton.textContent = isSending ? "שולח את הפרטים..." : defaultButtonText;
   }
 
   form.addEventListener("submit", function (event) {
@@ -76,7 +76,7 @@
         if (!response.ok) {
           throw new Error("n8n webhook returned status " + response.status);
         }
-        renderStatus("success", "תודה, הפרטים התקבלו.", "הפנייה שלך נשלחה בהצלחה.");
+        renderStatus("success", "תודה, הרעיון שלכם הגיע.", "הפרטים נשלחו בהצלחה.");
         form.reset();
       })
       .catch(function (error) {
