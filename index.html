@@ -154,8 +154,8 @@
           </ul>
         </div>
 
-        <!-- מבנה הטופס מוכן לחיבור עתידי ל-webhook של n8n. בשלב זה: אין action, אין ולידציה מותאמת ואין JavaScript. -->
-        <form class="contact-form" name="contact" method="post" novalidate>
+        <!-- הטופס שולח את הפרטים ל-webhook של n8n דרך script.js (fetch, ללא ריענון עמוד). -->
+        <form class="contact-form" id="contact-form" name="contact" method="post" novalidate>
           <div class="field">
             <label for="name">שם</label>
             <input type="text" id="name" name="name" autocomplete="name" required>
@@ -166,13 +166,14 @@
           </div>
           <div class="field">
             <label for="email">מייל</label>
-            <input type="email" id="email" name="email" autocomplete="email">
+            <input type="email" id="email" name="email" autocomplete="email" required>
           </div>
           <div class="field">
             <label for="message">מה תרצו לבנות?</label>
-            <textarea id="message" name="message" rows="5"></textarea>
+            <textarea id="message" name="message" rows="5" required></textarea>
           </div>
           <button type="submit" class="btn btn--primary contact-form__submit">שליחת הפרטים</button>
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
@@ -191,5 +192,6 @@
     </div>
   </footer>
 
+  <script src="script.js" defer></script>
 </body>
 </html>

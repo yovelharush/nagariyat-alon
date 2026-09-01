@@ -135,6 +135,14 @@ textarea:focus-visible {
   background: var(--color-charcoal);
   border-color: var(--color-charcoal);
 }
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+.btn--primary:disabled:hover {
+  background: var(--color-walnut);
+  border-color: var(--color-oak);
+}
 
 /* ---------- 5. Header ---------- */
 .site-header { background: var(--color-cream); border-block-end: 1px solid var(--line); }
@@ -340,6 +348,24 @@ textarea:focus-visible {
   background: #fff;
 }
 .contact-form__submit { justify-self: start; margin-block-start: 0.5rem; }
+
+/* אזור סטטוס שליחת הטופס (sending / success / error) — מוסתר כשריק */
+.form-status {
+  display: grid;
+  gap: 0.25rem;
+  margin-block-start: 0.5rem;
+  padding: 0.9rem 1.1rem;
+  border-inline-start: 3px solid var(--color-olive);
+  background: var(--field-bg);
+  border-radius: var(--radius);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.form-status:empty { display: none; }
+.form-status__title { font-family: var(--font-heading); font-weight: 600; font-size: 0.98rem; }
+.form-status__detail { color: var(--color-charcoal); }
+.form-status--success { border-inline-start-color: var(--color-oak); }
+.form-status--error { border-inline-start-color: var(--color-walnut); }
 
 /* ---------- 12. Footer ---------- */
 .site-footer {
