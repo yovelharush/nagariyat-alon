@@ -665,8 +665,11 @@ textarea:focus-visible {
 }
 
 @media (min-width: 80em) {
-  .hero__content { max-inline-size: 38rem; }
-  .hero__title { font-size: clamp(3.5rem, 5.2vw, 5rem); }
+  .hero__content { max-inline-size: 50rem; }
+  .hero__title {
+    font-size: clamp(3.5rem, 5.2vw, 5rem);
+    white-space: nowrap;
+  }
 }
 
 /* ==========================================================================
