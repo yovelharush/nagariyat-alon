@@ -1,322 +1,401 @@
 /* ==========================================================================
    נגריית אלון — style.css
-   שלב 2: CSS בסיסי בלבד לבדיקת שלד, תוכן והיררכיה.
-   השפה העיצובית המלאה, אנימציות ואפקטים יטופלו בשלב מאוחר יותר.
-   מבנה mobile-first: ברירת המחדל למובייל, התאמות רוחב במדיה queries.
+   שלב 3: שפה עיצובית מלאה + התאמה רספונסיבית (Mobile First).
+   ללא JavaScript, ללא frameworks, ללא ספריות. גופנים: Rubik + Heebo (Google Fonts).
+   מבנה: tokens → base → layout → components (לפי סדר ה-sections) → responsive.
    ========================================================================== */
 
-/* Reset בסיסי */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* ---------- 1. Tokens ---------- */
+:root {
+  color-scheme: light;
+
+  /* פלטת צבעים — נעולה */
+  --color-cream: #F4EFE7;
+  --color-sand: #E5D6C3;
+  --color-oak: #B47742;
+  --color-walnut: #68452F;
+  --color-charcoal: #25231F;
+  --color-olive: #68715A;
+
+  /* גופנים — נעולים */
+  --font-heading: "Rubik", sans-serif;
+  --font-body: "Heebo", sans-serif;
+
+  /* מבנה */
+  --container: 1180px;
+  --measure: 62ch;
+  --space-section: clamp(4rem, 9vw, 7.5rem);
+  --radius: 2px;
+
+  /* קווים עדינים */
+  --line: rgba(37, 35, 31, 0.12);
+  --line-oak: rgba(180, 119, 66, 0.40);
+  --line-cream: rgba(244, 239, 231, 0.22);
+  --field-bg: #FBF8F2;
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
-}
+/* ---------- 2. Reset / Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
 
 body {
-  margin: 0;
-  font-family: system-ui, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
+  font-weight: 400;
   font-size: 1rem;
   line-height: 1.7;
-  color: #2b2b2b;
-  background: #fdfcfa;
+  color: var(--color-charcoal);
+  background: var(--color-cream);
+  overflow-x: hidden; /* רשת ביטחון מפני גלילה אופקית */
+  -webkit-font-smoothing: antialiased;
 }
 
-/* טיפוגרפיה בסיסית */
-h1,
-h2,
-h3 {
-  line-height: 1.3;
-  margin: 0 0 0.5em;
-  font-weight: 700;
+img, figure, svg { display: block; max-width: 100%; }
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--color-charcoal);
+  overflow-wrap: break-word;
 }
 
-h1 {
-  font-size: 1.75rem;
+p { line-height: 1.75; }
+
+a { color: var(--color-walnut); text-underline-offset: 0.2em; }
+
+ul, ol { list-style: none; padding: 0; }
+
+/* טלפון ומייל — שמירה על כיווניות LTR קריאה בתוך מסמך עברי */
+a[href^="tel:"], a[href^="mailto:"] { direction: ltr; unicode-bidi: isolate; }
+
+/* focus נראה בכל אלמנט אינטראקטיבי (לא מסירים outline ללא חלופה) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-oak);
+  outline-offset: 3px;
+  border-radius: 1px;
 }
 
-h2 {
-  font-size: 1.4rem;
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; }
 }
 
-h3 {
-  font-size: 1.1rem;
-}
-
-p {
-  margin: 0 0 1em;
-}
-
-a {
-  color: #6b4a2b;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* פריסת רוחב תוכן */
+/* ---------- 3. Layout ---------- */
 .container {
   width: 100%;
-  max-width: 960px;
+  max-width: var(--container);
   margin-inline: auto;
-  padding-inline: 20px;
+  padding-inline: clamp(1.25rem, 5vw, 3.5rem);
 }
 
-.section {
-  padding-block: 40px;
-  border-top: 1px solid #ececec;
+.section { padding-block: var(--space-section); border-block-start: 1px solid var(--line); }
+
+.section__title {
+  font-size: clamp(1.5rem, 4.2vw, 2.25rem);
+  margin-block-end: clamp(1.5rem, 4vw, 2.75rem);
+}
+.section__title::before {
+  content: "";
+  display: block;
+  inline-size: 2.5rem;
+  block-size: 2px;
+  background: var(--color-oak);
+  margin-block-end: 1.25rem;
 }
 
-/* כפתור בסיסי */
+/* ---------- 4. Buttons ---------- */
 .btn {
   display: inline-block;
-  padding: 12px 20px;
-  background: #6b4a2b;
-  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 1rem 1.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
   text-decoration: none;
-  border: 0;
-  border-radius: 4px;
-  font: inherit;
-  font-weight: 700;
+  text-align: center;
   cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.btn--primary {
+  background: var(--color-walnut);
+  border-color: var(--color-oak);
+  color: var(--color-cream);
+}
+.btn--primary:hover {
+  background: var(--color-charcoal);
+  border-color: var(--color-charcoal);
 }
 
-/* ---------- Header ---------- */
-.site-header {
-  border-bottom: 1px solid #ececec;
-}
-
+/* ---------- 5. Header ---------- */
+.site-header { background: var(--color-cream); border-block-end: 1px solid var(--line); }
 .site-header__inner {
-  padding-block: 16px;
-}
-
-.brand {
-  display: flex;
-  flex-direction: column;
-}
-
-.brand__name {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.brand__tagline {
-  font-size: 0.95rem;
-  color: #6f6f6f;
-}
-
-.site-nav ul {
-  list-style: none;
-  margin: 12px 0 0;
-  padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 18px;
+  align-items: baseline;
+  gap: 0.5rem 2rem;
+  padding-block: 1.25rem;
 }
-
-.site-nav a {
+.brand {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.15rem;
   text-decoration: none;
+  color: var(--color-charcoal);
 }
-
-/* ---------- Hero ---------- */
-.hero {
-  padding-block: 40px;
+.brand__name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
 }
+.brand__tagline {
+  font-size: 0.82rem;
+  color: var(--color-olive);
+}
+.site-nav { inline-size: 100%; }
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.25rem;
+  padding-block-start: 0.75rem;
+  border-block-start: 1px solid var(--line);
+}
+.site-nav a {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--color-charcoal);
+  text-decoration: none;
+  padding-block: 0.2rem;
+}
+.site-nav a:hover { color: var(--color-walnut); text-decoration: underline; }
 
+/* ---------- 6. Hero ---------- */
+.hero { padding-block: clamp(2.5rem, 8vw, 6rem); }
+.hero__inner { display: grid; gap: clamp(2rem, 6vw, 4rem); }
+.hero__title {
+  font-size: clamp(2rem, 7.5vw, 3.5rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
 .hero__lead {
-  font-size: 1.05rem;
+  margin-block-start: 1.25rem;
+  max-inline-size: 42ch;
+  font-size: clamp(1rem, 2.6vw, 1.15rem);
 }
+.hero .btn--primary { margin-block-start: 2rem; }
 
 .hero__media {
-  margin: 24px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-  padding: 20px;
-  border: 1px dashed #c9bfb2;
-  border-radius: 6px;
-  color: #8a7c6a;
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: 4 / 3;
+  min-block-size: 220px;
+  background: var(--color-sand);
+  border: 1px solid var(--line-oak);
+  border-radius: var(--radius);
+}
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0.75rem;
+  border: 1px solid var(--line-oak);
+}
+
+/* ---------- 7. מה אני בונה ---------- */
+.work-list__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  column-gap: 1rem;
+  padding-block: clamp(1.25rem, 4vw, 2rem);
+  border-block-start: 1px solid var(--line);
+}
+.work-list__item:last-child { border-block-end: 1px solid var(--line); }
+.work-list__index {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--color-oak);
+}
+.work-list__name { font-size: clamp(1.15rem, 3.5vw, 1.6rem); }
+.work-list__media { display: none; }
+
+/* ---------- 8. אודות ---------- */
+.about__inner { display: grid; gap: 1.5rem; }
+.about__title { font-size: clamp(1.6rem, 4.6vw, 2.4rem); }
+.about__content > p { max-inline-size: var(--measure); }
+.about__content > p + p { margin-block-start: 1em; }
+.about__year {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(4rem, 20vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-sand);
+  justify-self: start;
+}
+
+/* ---------- 9. איך זה עובד ---------- */
+.process-list { position: relative; }
+.process-list::before {
+  content: "";
+  position: absolute;
+  inset-block: 2.5rem;
+  inset-inline-start: 1.5rem;
+  inline-size: 1px;
+  background: var(--line-oak);
+  z-index: 0;
+}
+.process-list__item {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  column-gap: 1.25rem;
+  padding-block: clamp(1.25rem, 4vw, 1.75rem);
+  border-block-start: 1px solid var(--line);
+}
+.process-list__item:last-child { border-block-end: 1px solid var(--line); }
+.process-list__num {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 1.35rem;
+  color: var(--color-oak);
   text-align: center;
+  background: var(--color-cream);
+  padding-block: 0.3rem;
 }
+.process-list__name { font-size: 1.15rem; margin-block-end: 0.35rem; }
 
-/* ---------- מה אני בונה ---------- */
-.work-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* ---------- 10. חומרים ואיכות (אזור עומק) ---------- */
+.section--dark {
+  background: var(--color-walnut);
+  color: var(--color-cream);
+  border-block-start: 0;
+}
+.section--dark .section__title { color: var(--color-cream); }
+.materials-list { max-inline-size: 44rem; }
+.materials-list li {
   display: grid;
-  gap: 16px;
+  grid-template-columns: 0.6rem 1fr;
+  align-items: start;
+  column-gap: 1rem;
+  padding-block: 1.1rem;
+  font-size: clamp(1rem, 2.8vw, 1.15rem);
+  border-block-start: 1px solid var(--line-cream);
+}
+.materials-list li:last-child { border-block-end: 1px solid var(--line-cream); }
+.materials-list li::before {
+  content: "";
+  inline-size: 0.6rem;
+  block-size: 0.6rem;
+  margin-block-start: 0.55em;
+  background: var(--color-oak);
 }
 
-.work-list li {
-  padding: 20px;
-  border: 1px solid #ececec;
-  border-radius: 6px;
-}
-
-.work-list h3 {
-  margin: 0;
-}
-
-/* ---------- איך זה עובד ---------- */
-.process-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 20px;
-  counter-reset: none;
-}
-
-.process-list li {
-  padding: 20px;
-  border: 1px solid #ececec;
-  border-radius: 6px;
-}
-
-.process-list__step {
-  display: inline-block;
-  margin-bottom: 8px;
-  font-weight: 700;
-  color: #6b4a2b;
-  letter-spacing: 0.05em;
-}
-
-.process-list h3 {
-  margin: 0 0 0.25em;
-}
-
-.process-list p {
-  margin: 0;
-}
-
-/* ---------- חומרים ואיכות ---------- */
-.materials-list {
-  margin: 0;
-  padding-inline-start: 1.25em;
-  display: grid;
-  gap: 8px;
-}
-
-/* ---------- יצירת קשר ---------- */
+/* ---------- 11. יצירת קשר ---------- */
+.contact__inner { display: grid; gap: clamp(2rem, 6vw, 3.5rem); }
 .contact__sub {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+  margin-block-start: 0.75rem;
 }
+.contact__note { margin-block-start: 1rem; max-inline-size: 48ch; }
+.contact__direct { display: grid; gap: 0.35rem; margin-block-start: 1.75rem; font-size: 1.05rem; }
+.contact__direct a { color: var(--color-walnut); text-decoration: none; }
+.contact__direct a:hover { color: var(--color-walnut); text-decoration: underline; }
 
-.contact__note {
-  max-width: 60ch;
-}
-
-.contact-form {
-  margin-top: 24px;
-  display: grid;
-  gap: 18px;
-  max-width: 480px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.field label {
-  font-weight: 700;
-}
-
+.contact-form { display: grid; gap: 1.25rem; max-inline-size: 32rem; }
+.field { display: grid; gap: 0.4rem; }
+.field label { font-weight: 600; font-size: 0.95rem; }
 .field input,
 .field textarea {
-  font: inherit;
-  padding: 10px 12px;
-  border: 1px solid #c9bfb2;
-  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-charcoal);
+  background: var(--field-bg);
+  padding: 0.9rem 1rem;
+  min-block-size: 3rem;
+  inline-size: 100%;
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.field textarea { min-block-size: 8rem; line-height: 1.6; resize: vertical; }
+.field input:hover,
+.field textarea:hover { border-color: var(--color-oak); }
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--color-oak);
   background: #fff;
-  color: inherit;
 }
+.contact-form__submit { justify-self: start; margin-block-start: 0.5rem; }
 
-.field textarea {
-  resize: vertical;
-}
-
-.contact__direct {
-  list-style: none;
-  margin: 24px 0 0;
-  padding: 0;
-  display: grid;
-  gap: 6px;
-}
-
-/* ---------- Footer ---------- */
+/* ---------- 12. Footer ---------- */
 .site-footer {
-  margin-top: 20px;
-  padding-block: 32px;
-  border-top: 1px solid #ececec;
-  background: #f5f1ea;
+  background: var(--color-sand);
+  border-block-start: 2px solid var(--color-oak);
+  padding-block: clamp(2.5rem, 6vw, 3.5rem);
 }
-
-.site-footer__name {
-  font-weight: 700;
-  margin: 0 0 8px;
-}
-
-.site-footer__details {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 4px;
-}
+.site-footer__inner { display: grid; gap: 1rem; }
+.site-footer__name { font-family: var(--font-heading); font-weight: 500; font-size: 1.1rem; }
+.site-footer__details { display: grid; gap: 0.35rem; font-size: 0.98rem; }
+.site-footer__details a { color: var(--color-walnut); text-decoration: none; }
+.site-footer__details a:hover { text-decoration: underline; }
 
 /* ==========================================================================
-   Responsive — התאמות בסיסיות למסכים רחבים יותר
+   13. Responsive — שדרוגי פריסה מטאבלט ומעלה
    ========================================================================== */
-@media (min-width: 700px) {
-  h1 {
-    font-size: 2.25rem;
-  }
+@media (min-width: 48em) {
+  .site-header__inner { flex-wrap: nowrap; align-items: center; justify-content: space-between; }
+  .site-nav { inline-size: auto; }
+  .site-nav ul { padding-block-start: 0; border-block-start: 0; gap: 1.75rem; }
+  .site-nav a { font-size: 0.95rem; }
 
-  h2 {
-    font-size: 1.75rem;
-  }
+  .hero__inner { grid-template-columns: 1.05fr 0.95fr; align-items: center; }
+  .hero__media { aspect-ratio: 4 / 5; min-block-size: 380px; }
 
-  .site-header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .site-nav ul {
-    margin-top: 0;
-  }
-
-  .hero__inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+  .work-list__item {
+    grid-template-columns: auto minmax(0, 20rem) 1fr;
+    column-gap: 1.75rem;
     align-items: center;
   }
-
-  .hero__media {
-    margin-top: 0;
-    min-height: 260px;
+  .work-list__index { font-size: 1.05rem; }
+  .work-list__media {
+    display: block;
+    justify-self: start;
+    inline-size: min(100%, 11rem);
+    aspect-ratio: 3 / 2;
+    background: var(--color-sand);
+    border: 1px solid var(--line-oak);
+    border-radius: var(--radius);
   }
 
-  .work-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .about__inner { grid-template-columns: 1fr auto; align-items: center; gap: clamp(2rem, 6vw, 5rem); }
+  .about__year { font-size: clamp(6rem, 13vw, 10rem); }
 
-  .process-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .process-list::before { inset-inline-start: 2rem; inset-block: 2.75rem; }
+  .process-list__item { grid-template-columns: 4rem 1fr; column-gap: 2rem; }
+  .process-list__num { font-size: 1.6rem; }
 
-  .materials-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .contact__inner { grid-template-columns: 1fr 1fr; align-items: start; }
+
+  .site-footer__inner { grid-template-columns: auto 1fr; align-items: center; gap: 2.5rem; }
+  .site-footer__details { grid-auto-flow: column; justify-content: start; gap: 1.75rem; }
+}
+
+@media (min-width: 64em) {
+  .hero { padding-block: clamp(4rem, 8vw, 7rem); }
+  .work-list__item { grid-template-columns: auto minmax(0, 24rem) 1fr; }
+  .work-list__media { inline-size: min(100%, 13rem); }
 }
