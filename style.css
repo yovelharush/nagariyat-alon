@@ -1,0 +1,322 @@
+/* ==========================================================================
+   נגריית אלון — style.css
+   שלב 2: CSS בסיסי בלבד לבדיקת שלד, תוכן והיררכיה.
+   השפה העיצובית המלאה, אנימציות ואפקטים יטופלו בשלב מאוחר יותר.
+   מבנה mobile-first: ברירת המחדל למובייל, התאמות רוחב במדיה queries.
+   ========================================================================== */
+
+/* Reset בסיסי */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #2b2b2b;
+  background: #fdfcfa;
+}
+
+/* טיפוגרפיה בסיסית */
+h1,
+h2,
+h3 {
+  line-height: 1.3;
+  margin: 0 0 0.5em;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: #6b4a2b;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* פריסת רוחב תוכן */
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.section {
+  padding-block: 40px;
+  border-top: 1px solid #ececec;
+}
+
+/* כפתור בסיסי */
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #6b4a2b;
+  color: #fff;
+  text-decoration: none;
+  border: 0;
+  border-radius: 4px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  border-bottom: 1px solid #ececec;
+}
+
+.site-header__inner {
+  padding-block: 16px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.brand__tagline {
+  font-size: 0.95rem;
+  color: #6f6f6f;
+}
+
+.site-nav ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.site-nav a {
+  text-decoration: none;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  padding-block: 40px;
+}
+
+.hero__lead {
+  font-size: 1.05rem;
+}
+
+.hero__media {
+  margin: 24px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 20px;
+  border: 1px dashed #c9bfb2;
+  border-radius: 6px;
+  color: #8a7c6a;
+  text-align: center;
+}
+
+/* ---------- מה אני בונה ---------- */
+.work-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.work-list li {
+  padding: 20px;
+  border: 1px solid #ececec;
+  border-radius: 6px;
+}
+
+.work-list h3 {
+  margin: 0;
+}
+
+/* ---------- איך זה עובד ---------- */
+.process-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 20px;
+  counter-reset: none;
+}
+
+.process-list li {
+  padding: 20px;
+  border: 1px solid #ececec;
+  border-radius: 6px;
+}
+
+.process-list__step {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #6b4a2b;
+  letter-spacing: 0.05em;
+}
+
+.process-list h3 {
+  margin: 0 0 0.25em;
+}
+
+.process-list p {
+  margin: 0;
+}
+
+/* ---------- חומרים ואיכות ---------- */
+.materials-list {
+  margin: 0;
+  padding-inline-start: 1.25em;
+  display: grid;
+  gap: 8px;
+}
+
+/* ---------- יצירת קשר ---------- */
+.contact__sub {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.contact__note {
+  max-width: 60ch;
+}
+
+.contact-form {
+  margin-top: 24px;
+  display: grid;
+  gap: 18px;
+  max-width: 480px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-weight: 700;
+}
+
+.field input,
+.field textarea {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid #c9bfb2;
+  border-radius: 4px;
+  background: #fff;
+  color: inherit;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.contact__direct {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  margin-top: 20px;
+  padding-block: 32px;
+  border-top: 1px solid #ececec;
+  background: #f5f1ea;
+}
+
+.site-footer__name {
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.site-footer__details {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   Responsive — התאמות בסיסיות למסכים רחבים יותר
+   ========================================================================== */
+@media (min-width: 700px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .site-nav ul {
+    margin-top: 0;
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .hero__media {
+    margin-top: 0;
+    min-height: 260px;
+  }
+
+  .work-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .process-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .materials-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
