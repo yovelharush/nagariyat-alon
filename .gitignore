@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Editors / temporary files
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Secrets / environment (n8n webhook config, added later)
+.env
+.env.local
+.env.*.local
+
+# Vercel CLI
+.vercel
