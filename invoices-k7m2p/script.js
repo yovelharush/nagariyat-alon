@@ -27,6 +27,7 @@ const uploadBlock = document.getElementById("upload-block");
 
 const dropzone = document.getElementById("dropzone");
 const fileInput = document.getElementById("invoice-file");
+const cameraInput = document.getElementById("invoice-file-camera");
 const fileSummaryEl = document.getElementById("file-summary");
 const fileSummaryIconEl = document.getElementById("file-summary-icon");
 const fileSummaryNameEl = document.getElementById("file-summary-name");
@@ -224,6 +225,7 @@ function hideResult() {
 
 function setFormEnabled(enabled) {
   fileInput.disabled = !enabled;
+  cameraInput.disabled = !enabled;
   fileRemoveBtn.disabled = !enabled;
   dropzone.classList.toggle("dropzone--disabled", !enabled);
 }
@@ -261,11 +263,16 @@ function validateFile(file) {
   return { valid: true };
 }
 
+function clearFileInputs() {
+  fileInput.value = "";
+  cameraInput.value = "";
+}
+
 function handleFileSelected(file) {
   const validation = validateFile(file);
 
   if (!validation.valid) {
-    fileInput.value = "";
+    clearFileInputs();
     selectedFile = null;
     fileSummaryEl.hidden = true;
     dropzone.hidden = false;
@@ -292,8 +299,12 @@ fileInput.addEventListener("change", () => {
   handleFileSelected(fileInput.files[0]);
 });
 
+cameraInput.addEventListener("change", () => {
+  handleFileSelected(cameraInput.files[0]);
+});
+
 fileRemoveBtn.addEventListener("click", () => {
-  fileInput.value = "";
+  clearFileInputs();
   selectedFile = null;
   fileSummaryEl.hidden = true;
   dropzone.hidden = false;

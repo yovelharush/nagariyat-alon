@@ -162,6 +162,40 @@ h1 {
   color: var(--color-muted);
 }
 
+.dropzone__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.dropzone__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--color-amber);
+  background: transparent;
+  border: 1px solid var(--color-walnut-light);
+  border-radius: var(--radius);
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+.dropzone__action:hover,
+.dropzone__action:focus-within {
+  border-color: var(--color-amber);
+  background: rgba(214, 164, 106, 0.08);
+}
+
+.dropzone--disabled .dropzone__action {
+  pointer-events: none;
+}
+
 /* תקציר קובץ שנבחר */
 
 .file-summary {

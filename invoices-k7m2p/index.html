@@ -23,19 +23,34 @@
 
       <form id="invoice-form" novalidate>
         <div id="upload-block">
-          <label class="dropzone" id="dropzone">
+          <div class="dropzone" id="dropzone">
+            <input
+              type="file"
+              id="invoice-file-camera"
+              name="invoice-file-camera"
+              accept="image/*"
+              capture="environment"
+              class="visually-hidden"
+            >
             <input
               type="file"
               id="invoice-file"
               name="invoice-file"
               accept="image/*,.pdf,application/pdf"
-              capture="environment"
               class="visually-hidden"
             >
             <span class="dropzone__icon" aria-hidden="true">📄</span>
-            <span class="dropzone__text">לחצו לבחירת קובץ, או גררו אותו לכאן</span>
+            <span class="dropzone__text">גררו קובץ לכאן, או בחרו פעולה</span>
             <span class="dropzone__hint">תמונה או PDF</span>
-          </label>
+            <div class="dropzone__actions">
+              <label class="dropzone__action" for="invoice-file-camera">
+                <span aria-hidden="true">📷</span> צלם חשבונית
+              </label>
+              <label class="dropzone__action" for="invoice-file">
+                <span aria-hidden="true">🖼️</span> בחר מהגלריה
+              </label>
+            </div>
+          </div>
 
           <div class="file-summary" id="file-summary" hidden>
             <span class="file-summary__icon" id="file-summary-icon" aria-hidden="true">📄</span>
