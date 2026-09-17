@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>העלאת חשבונית | נגריית אלון</title>
+  <meta name="theme-color" content="#17130F">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Rubik:wght@500;600&display=swap">
+  <link rel="stylesheet" href="/invoices-k7m2p/style.css">
+</head>
+<body>
+
+  <main class="page">
+    <div class="card" id="card">
+      <div id="intro">
+        <p class="eyebrow">נגריית אלון | הנהלת חשבונות</p>
+        <h1>העלאת חשבונית</h1>
+        <p class="lead">צלמו או בחרו קובץ חשבונית, ונעקוב אחרי העיבוד שלה בזמן אמת.</p>
+      </div>
+
+      <form id="invoice-form" novalidate>
+        <div id="upload-block">
+          <label class="dropzone" id="dropzone">
+            <input
+              type="file"
+              id="invoice-file"
+              name="invoice-file"
+              accept="image/*,.pdf,application/pdf"
+              capture="environment"
+              class="visually-hidden"
+            >
+            <span class="dropzone__icon" aria-hidden="true">📄</span>
+            <span class="dropzone__text">לחצו לבחירת קובץ, או גררו אותו לכאן</span>
+            <span class="dropzone__hint">תמונה או PDF</span>
+          </label>
+
+          <div class="file-summary" id="file-summary" hidden>
+            <span class="file-summary__icon" id="file-summary-icon" aria-hidden="true">📄</span>
+            <span class="file-summary__info">
+              <span class="file-summary__name" id="file-summary-name"></span>
+              <span class="file-summary__meta" id="file-summary-meta"></span>
+            </span>
+            <button type="button" class="file-summary__remove" id="file-remove-btn" aria-label="הסרת הקובץ שנבחר">✕</button>
+          </div>
+
+          <p class="field-error" id="file-error" role="alert" hidden></p>
+
+          <button type="submit" class="btn btn--primary" id="submit-btn" disabled>
+            שליחת החשבונית
+          </button>
+        </div>
+
+        <p class="result" id="result" role="status" aria-live="polite" hidden></p>
+
+        <!-- כרטיס עיבוד חי -->
+        <section class="status-card" id="status-card" role="status" aria-live="polite" hidden>
+          <div class="status-card__header">
+            <span class="status-card__spinner" aria-hidden="true"></span>
+            <span id="status-headline">שולח את החשבונית…</span>
+          </div>
+
+          <ol class="stages" id="stages">
+            <li class="stages__item" data-stage="0"><span class="stages__dot" aria-hidden="true"></span>החשבונית נשלחה</li>
+            <li class="stages__item" data-stage="1"><span class="stages__dot" aria-hidden="true"></span>התקבל מזהה עבודה</li>
+            <li class="stages__item" data-stage="2"><span class="stages__dot" aria-hidden="true"></span>מעבד את המסמך</li>
+            <li class="stages__item" data-stage="3"><span class="stages__dot" aria-hidden="true"></span>העיבוד הושלם</li>
+          </ol>
+
+          <p class="status-card__elapsed">זמן שחלף: <strong id="meta-elapsed">0 שניות</strong></p>
+          <p class="status-card__checks" id="meta-checks-line">בדיקות סטטוס: <span id="meta-checks">0</span></p>
+        </section>
+
+        <!-- כרטיס תוצאה: נכשל / בוטל / timeout -->
+        <section class="outcome-card" id="outcome-card" role="status" aria-live="polite" hidden>
+          <h2><span id="outcome-icon" aria-hidden="true">⚠</span> <span id="outcome-title-text">עיבוד החשבונית נכשל</span></h2>
+          <p class="outcome-card__note" id="outcome-note"></p>
+          <p class="outcome-card__detail" id="outcome-error" hidden></p>
+
+          <p class="outcome-card__stats">
+            זמן שחלף: <strong id="outcome-elapsed">0 שניות</strong>
+            · בדיקות סטטוס: <strong id="outcome-checks">0</strong>
+          </p>
+
+          <button type="button" class="btn btn--primary" id="retry-btn">לנסות שוב</button>
+        </section>
+
+        <!-- כרטיס תוצאה: הושלם -->
+        <section class="result-card" id="result-card" role="status" aria-live="polite" hidden>
+          <h2 class="result-banner" id="result-banner">
+            <span class="result-banner__icon" id="result-banner-icon" aria-hidden="true">✔</span>
+            <span id="result-banner-text">החשבונית נקלטה ועובדה בהצלחה</span>
+          </h2>
+
+          <div class="invoice-summary">
+            <div class="invoice-summary__amount">
+              <span class="invoice-summary__amount-label">סכום לתשלום</span>
+              <span class="invoice-summary__amount-value" id="invoice-amount">—</span>
+            </div>
+            <div class="invoice-summary__identity">
+              <span class="invoice-summary__supplier" id="invoice-supplier-headline">—</span>
+              <span class="invoice-summary__date" id="invoice-date-headline">—</span>
+            </div>
+          </div>
+
+          <dl class="invoice-grid" id="invoice-grid">
+            <div class="invoice-grid__item">
+              <dt>ספק</dt><dd id="grid-supplier">—</dd>
+            </div>
+            <div class="invoice-grid__item">
+              <dt>תאריך חשבונית</dt><dd id="grid-date">—</dd>
+            </div>
+            <div class="invoice-grid__item">
+              <dt>מס׳ חשבונית</dt><dd id="grid-number">—</dd>
+            </div>
+            <div class="invoice-grid__item">
+              <dt>קטגוריה</dt><dd id="grid-category">—</dd>
+            </div>
+            <div class="invoice-grid__item invoice-grid__item--wide">
+              <dt>תיאור / סוג שירות</dt><dd id="grid-service">—</dd>
+            </div>
+            <div class="invoice-grid__item">
+              <dt>לפני מע״מ</dt><dd id="grid-before-vat">—</dd>
+            </div>
+            <div class="invoice-grid__item">
+              <dt>מע״מ</dt><dd id="grid-vat">—</dd>
+            </div>
+            <div class="invoice-grid__item">
+              <dt>אחרי מע״מ</dt><dd id="grid-after-vat">—</dd>
+            </div>
+          </dl>
+
+          <div class="drive-action" id="drive-action" hidden>
+            <a href="#" id="drive-action-link" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+              פתח את החשבונית
+            </a>
+          </div>
+
+          <div class="review-warnings" id="review-warnings" hidden>
+            <p class="review-warnings__title">⚠ מומלץ לבדוק:</p>
+            <ul class="review-warnings__list" id="review-warnings-list"></ul>
+          </div>
+
+          <div class="meta-grid meta-grid--secondary">
+            <div class="meta-item">
+              <span class="meta-item__label">זמן עיבוד כולל</span>
+              <span class="meta-item__value" id="result-elapsed">—</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-item__label">עמודים</span>
+              <span class="meta-item__value" id="result-pages">—</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-item__label">קרדיטים</span>
+              <span class="meta-item__value" id="result-credits">—</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-item__label">בדיקות סטטוס</span>
+              <span class="meta-item__value" id="result-checks">—</span>
+            </div>
+          </div>
+
+          <div class="result-card__actions">
+            <button type="button" class="btn btn--ghost" id="copy-btn">העתקת הטקסט</button>
+            <button type="button" class="btn btn--ghost" id="download-btn">הורדת הטקסט</button>
+            <span class="result-card__feedback" id="copy-feedback" aria-live="polite"></span>
+          </div>
+
+          <details class="markdown-debug" id="markdown-debug">
+            <summary>הצגת הטקסט הגולמי שחולץ מהחשבונית</summary>
+            <pre id="markdown-debug-content"></pre>
+          </details>
+
+          <button type="button" class="btn btn--primary" id="reset-btn">העלאת חשבונית נוספת</button>
+        </section>
+
+        <!-- פרטים טכניים: משותף לשלושת הכרטיסים למעלה, קיים כל עוד יש עבודה פעילה/אחרונה -->
+        <details class="tech-details" id="tech-details" hidden>
+          <summary>פרטים טכניים</summary>
+          <dl>
+            <dt>מזהה עבודה</dt>
+            <dd>
+              <span class="tech-details__mono" id="tech-jobid">—</span>
+              <button type="button" class="copy-chip" id="copy-jobid-btn">העתקה</button>
+            </dd>
+            <dt>סטטוס גולמי מה-API</dt>
+            <dd id="tech-raw-status">—</dd>
+            <dt>רמת עיבוד (tier)</dt>
+            <dd>agentic</dd>
+            <dt>משך</dt>
+            <dd id="tech-duration">—</dd>
+            <dt>בדיקות סטטוס</dt>
+            <dd id="tech-checks">0</dd>
+            <dt id="tech-drive-id-label" hidden>מזהה קובץ ב-Drive</dt>
+            <dd id="tech-drive-id" hidden></dd>
+          </dl>
+        </details>
+      </form>
+    </div>
+  </main>
+
+  <script src="/invoices-k7m2p/script.js"></script>
+</body>
+</html>

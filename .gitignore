@@ -34,3 +34,4 @@ Desktop.ini
 
 # צילומי QA מקומיים
 qa-screenshots/
+.env*
